@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <utility>
 #include <cmath>
 
 #include "BigInteger.hpp"
@@ -16,18 +17,36 @@ BigInteger::BigInteger(int num) :
 	m_sizeReserved(4)
 {
 	auto count = findDigitCount(num);
-	m_number = new uint8_t[m_digitCount];
-	for (unsigned int i = 0; i < count - 1; i++) {
+	m_number = new uint8_t[getSizeReserved()];
+	for (unsigned int i = 0; i < count; i++) {
 		m_number[i] = (num % 10);
 		num /= 10;
 	}
+	if (count != getSizeReserved()) {
+		fillArray();
+	}
+	std::cout << "int constructor: " << m_digitCount << ", " << m_sizeReserved << std::endl;
 }
 
 BigInteger::BigInteger(std::string line) :
-	m_digitCount(0),
+	m_digitCount(line.length()),
 	m_sizeReserved(4)
 {
+	if (m_digitCount > getSizeReserved()) {
+		checkSizeReserved(m_digitCount);
+	}
 
+	m_number = new uint8_t[getSizeReserved()];
+	for (unsigned int i = 0; i < m_digitCount; i++) {
+		if (line.length() > 0) {
+			m_number[i] = line.back() - '0';
+			line.pop_back();
+		}
+	}
+	if (m_digitCount != getSizeReserved()) {
+		fillArray();
+	}
+	std::cout << "string constructor: " << m_digitCount << ", " << m_sizeReserved << std::endl;
 }
 
 unsigned int BigInteger::getSizeReserved()
@@ -37,6 +56,7 @@ unsigned int BigInteger::getSizeReserved()
 
 BigInteger BigInteger::add(const BigInteger& rhs)
 {
+	std::cout << "add\n";
 	BigInteger result;
 	unsigned int length = (this->m_digitCount > rhs.m_digitCount) ? this->m_digitCount : rhs.m_digitCount;
 
@@ -49,11 +69,11 @@ BigInteger BigInteger::add(const BigInteger& rhs)
 		int single = sum % 10;
 		carry = ((sum - single) > 0) ? (sum - single) / 10 : 0;
 
-		//result.setDigit(digit, single);
+		result.setDigit(digit, single);
 	}
 	if (carry > 0)
 	{
-		//result.setDigit(length, carry);
+		result.setDigit(length, carry);
 	}
 
 	return result;
@@ -98,21 +118,29 @@ void BigInteger::display()
 	}
 }
 
+//copy constructor
 BigInteger::BigInteger(const BigInteger &rhs)
 {
-	copyArray(*this, rhs);
+	std::cout << "copy constructor: " << rhs.m_sizeReserved << ", " << rhs.m_digitCount << std::endl;
+	copyArray(rhs);
+
 }
 
+//assignment operator
 BigInteger& BigInteger::operator=(const BigInteger &rhs)
 {
-	// TODO: insert return statement here
+	std::cout << "assignment\n";
+	delete[] this->m_number;
+	copyArray(rhs);
+	return *this;
 }
 
 BigInteger::~BigInteger()
 {
 	if (m_number != nullptr) {
-		delete[]m_number;
-		m_number = nullptr;
+
+		//delete[]m_number;
+
 	}
 }
 
@@ -138,9 +166,27 @@ std::uint8_t BigInteger::getDigit(unsigned int position) const
 //
 // ------------------------------------------------------------------
 void BigInteger::setDigit(unsigned int position, std::uint8_t digit) {
+	//if pos > size resereved
 	if (position >= getSizeReserved()) {
-		incSizeReserved(position);
+		int oldSize = m_sizeReserved;
+		checkSizeReserved(position);
+		int newSize = m_sizeReserved;
+		BigInteger *ptr = this;
+		m_number = new uint8_t[newSize];
+		for (int i = 0; i < oldSize; i++) {
+			std::cout << "setDigit: " << ptr->m_number[i] << std::endl;
+			m_number[i] = ptr->m_number[i];
+		}
+		m_number[position] = digit;
+
 	}
+	else {
+		m_number[position] = digit;
+		std::cout << "setDigit, else: " << m_number[position]-1 << ", " << m_digitCount << ", " << m_sizeReserved << std::endl;
+	}
+	m_digitCount++;
+	
+
 }
 
 // ------------------------------------------------------------------
@@ -148,20 +194,22 @@ void BigInteger::setDigit(unsigned int position, std::uint8_t digit) {
 //
 //
 // ------------------------------------------------------------------
-void BigInteger::incSizeReserved(unsigned int position) {
-	while (position >= getSizeReserved()) {
-		m_sizeReserved *= 2;
-	}
+void BigInteger::checkSizeReserved(unsigned int value) {
+		while (value >= getSizeReserved()) {
+			m_sizeReserved *= 2;
+		}
 }
 
-void BigInteger::copyArray(BigInteger &lhs, const BigInteger &rhs)
+void BigInteger::copyArray(const BigInteger &rhs)
 {
-	lhs.m_sizeReserved = rhs.m_sizeReserved;
-	lhs.m_digitCount = rhs.m_digitCount;
+	//std::cout << "inside copyArray: " << rhs.m_sizeReserved << ", " << rhs.m_digitCount << std::endl;
+	m_sizeReserved = rhs.m_sizeReserved;
+	m_digitCount = rhs.m_digitCount;
 
-	lhs.m_number = new uint8_t[m_sizeReserved];
-	for (int i = 0; i < m_sizeReserved; i++) {
-		lhs.m_number[0] = (rhs.m_number[0]);
+	m_number = new uint8_t[m_sizeReserved];
+	for (int i = 0; i < m_digitCount; i++) {
+		m_number[i] = rhs.m_number[i];
+		std::cout << "for loop in copyArray: " << rhs.m_number[i]-1 << std::endl;
 	}
 }
 
@@ -171,11 +219,16 @@ unsigned int BigInteger::findDigitCount(T num) {
 	while (num != 0) {
 		num /= 10;
 		size++;
-		if (m_sizeReserved == size) {
-			incSizeReserved();
+		if (size > m_sizeReserved) {
+			checkSizeReserved(size);
 		}
 	}
 	m_digitCount = size;
 	return size;
 }
 
+void BigInteger::fillArray() {
+	for (int i = m_digitCount; i < m_sizeReserved; i++) {
+		m_number[i] = 0;
+	}
+}

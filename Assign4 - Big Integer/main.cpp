@@ -23,15 +23,17 @@ BigInteger factorial(unsigned int value)
 int main()
 {
 	BigInteger one(1234);
-	//BigInteger two(9999);
-	//BigInteger result = one.add(two);
+	BigInteger two(9999);
+	//BigInteger one(10);
+	//BigInteger two(5);
+	BigInteger result = one.add(two);
 	std::cout << "one + two = ";
-	//result.display();
-	//std::cout << std::endl;
+	result.display();
+	std::cout << std::endl;
 
 	//
 	// Site to get big number results: https://defuse.ca/big-number-calculator.htm
-	//BigInteger three("1234567890");
+	BigInteger three("1234567890");
 	//BigInteger four("123456789");
 	//BigInteger result2 = three.multiply(four);
 	//std::cout << "three * four = ";

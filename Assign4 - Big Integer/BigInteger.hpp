@@ -19,10 +19,10 @@ public:
 	void display();
 
 	//copy constructor
-	BigInteger(const BigInteger &obj);
+	BigInteger(const BigInteger &rhs);
 
 	//assignment operator
-	BigInteger& operator=(const BigInteger &obj);
+	BigInteger& operator=(const BigInteger &rhs);
 
 	//deconstructor
 	~BigInteger();
@@ -36,9 +36,12 @@ private:
 
 	std::uint8_t getDigit(unsigned int position) const;
 	void setDigit(unsigned int position, std::uint8_t digit);
-	void incSizeReserved(unsigned int position);
+	void checkSizeReserved(unsigned int position);
 	template <typename T>
 	unsigned int findDigitCount(T num);
+
+	void copyArray(const BigInteger &rhs);
+	void fillArray();
 
 };
 
