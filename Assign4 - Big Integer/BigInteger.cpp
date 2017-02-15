@@ -5,6 +5,12 @@
 
 #include "BigInteger.hpp"
 
+void BigInteger::testPrint() {
+	//std::cout << "digit count: " << m_digitCount << ", size reserve: " << m_sizeReserved << ", num: ";
+	//this->display();
+	//std::cout<<std::endl;
+}
+
 BigInteger::BigInteger() :
 	m_number(new uint8_t[4]{0, 0, 0 ,0}),
 	m_digitCount(0),
@@ -14,8 +20,10 @@ BigInteger::BigInteger() :
 }
 
 BigInteger::BigInteger(int num) :
+	m_digitCount(1),
 	m_sizeReserved(4)
 {
+	//std::cout << "int constructor\n";
 	auto count = findDigitCount(num);
 	m_number = new uint8_t[getSizeReserved()];
 	for (unsigned int i = 0; i < count; i++) {
@@ -25,13 +33,14 @@ BigInteger::BigInteger(int num) :
 	if (count != getSizeReserved()) {
 		fillArray();
 	}
-	std::cout << "int constructor: " << m_digitCount << ", " << m_sizeReserved << std::endl;
+	//testPrint();
 }
 
 BigInteger::BigInteger(std::string line) :
 	m_digitCount(line.length()),
 	m_sizeReserved(4)
 {
+	//std::cout << "string constructor\n";
 	if (m_digitCount > getSizeReserved()) {
 		checkSizeReserved(m_digitCount);
 	}
@@ -46,7 +55,7 @@ BigInteger::BigInteger(std::string line) :
 	if (m_digitCount != getSizeReserved()) {
 		fillArray();
 	}
-	std::cout << "string constructor: " << m_digitCount << ", " << m_sizeReserved << std::endl;
+	//testPrint();
 }
 
 unsigned int BigInteger::getSizeReserved()
@@ -56,7 +65,7 @@ unsigned int BigInteger::getSizeReserved()
 
 BigInteger BigInteger::add(const BigInteger& rhs)
 {
-	std::cout << "add\n";
+	//std::cout << "add\n";
 	BigInteger result;
 	unsigned int length = (this->m_digitCount > rhs.m_digitCount) ? this->m_digitCount : rhs.m_digitCount;
 
@@ -97,11 +106,11 @@ BigInteger BigInteger::multiply(const BigInteger& rhs)
 			int single = sum % 10;
 			carry = ((sum - single) > 0) ? (sum - single) / 10 : 0;
 
-			//temp.setDigit(bDigit + tDigit, single);
+			temp.setDigit(bDigit + tDigit, single);
 		}
 		if (carry > 0)
 		{
-			//temp.setDigit(bDigit + t.m_digitCount, carry);
+			temp.setDigit(bDigit + t.m_digitCount, carry);
 		}
 		BigInteger temp2 = result.add(temp);
 		result = temp2;
@@ -121,7 +130,7 @@ void BigInteger::display()
 //copy constructor
 BigInteger::BigInteger(const BigInteger &rhs)
 {
-	std::cout << "copy constructor: " << rhs.m_sizeReserved << ", " << rhs.m_digitCount << std::endl;
+	//std::cout << "copy constructor\n";
 	copyArray(rhs);
 
 }
@@ -129,7 +138,7 @@ BigInteger::BigInteger(const BigInteger &rhs)
 //assignment operator
 BigInteger& BigInteger::operator=(const BigInteger &rhs)
 {
-	std::cout << "assignment\n";
+	//std::cout << "assignment\n";
 	delete[] this->m_number;
 	copyArray(rhs);
 	return *this;
@@ -139,7 +148,7 @@ BigInteger::~BigInteger()
 {
 	if (m_number != nullptr) {
 
-		//delete[]m_number;
+		delete[]m_number;
 
 	}
 }
@@ -168,23 +177,27 @@ std::uint8_t BigInteger::getDigit(unsigned int position) const
 void BigInteger::setDigit(unsigned int position, std::uint8_t digit) {
 	//if pos > size resereved
 	if (position >= getSizeReserved()) {
-		int oldSize = m_sizeReserved;
+		// std::cout << "setDigit\n";
 		checkSizeReserved(position);
 		int newSize = m_sizeReserved;
-		BigInteger *ptr = this;
+		uint8_t *ptr_number = m_number;
 		m_number = new uint8_t[newSize];
-		for (int i = 0; i < oldSize; i++) {
-			std::cout << "setDigit: " << ptr->m_number[i] << std::endl;
-			m_number[i] = ptr->m_number[i];
+		for (int i = 0; i < newSize; i++) {
+			m_number[i] = ptr_number[i];
 		}
+		fillArray();
 		m_number[position] = digit;
 
 	}
 	else {
 		m_number[position] = digit;
-		std::cout << "setDigit, else: " << m_number[position]-1 << ", " << m_digitCount << ", " << m_sizeReserved << std::endl;
+		//std::cout << "setDigit, else\n";
 	}
-	m_digitCount++;
+	
+		if (m_digitCount <= position) {
+			m_digitCount = position + 1;
+		}
+	testPrint();
 	
 
 }
@@ -207,14 +220,12 @@ void BigInteger::copyArray(const BigInteger &rhs)
 	m_digitCount = rhs.m_digitCount;
 
 	m_number = new uint8_t[m_sizeReserved];
-	for (int i = 0; i < m_digitCount; i++) {
+	for (int i = 0; i < getSizeReserved(); i++) {
 		m_number[i] = rhs.m_number[i];
-		std::cout << "for loop in copyArray: " << rhs.m_number[i]-1 << std::endl;
 	}
 }
 
-template <typename T>
-unsigned int BigInteger::findDigitCount(T num) {
+unsigned int BigInteger::findDigitCount(int num) {
 	unsigned int size = 0;
 	while (num != 0) {
 		num /= 10;

@@ -37,11 +37,13 @@ private:
 	std::uint8_t getDigit(unsigned int position) const;
 	void setDigit(unsigned int position, std::uint8_t digit);
 	void checkSizeReserved(unsigned int position);
-	template <typename T>
-	unsigned int findDigitCount(T num);
+	unsigned int findDigitCount(int num);
 
 	void copyArray(const BigInteger &rhs);
 	void fillArray();
+
+
+	void testPrint();
 
 };
 
