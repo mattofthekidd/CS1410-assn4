@@ -1,8 +1,10 @@
-﻿  TestCases.cpp
-\\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\testcases.cpp(70): warning C4018: '<': signed/unsigned mismatch
+﻿  BigInteger.cpp
+\\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.cpp(202): warning C4018: '<': signed/unsigned mismatch
+\\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.cpp(230): warning C4018: '<': signed/unsigned mismatch
+\\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.cpp(249): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
-  Compiling...
+  Skipping... (no relevant changes detected)
   main.cpp
-  Generating Code...
+  TestCases.cpp
   Assign4 - Big Integer.vcxproj -> \\Mac\Home\Documents\Visual Studio 2015\Projects\cs1410\Assign4 - Big Integer\Debug\Assign4 - Big Integer.exe
   Assign4 - Big Integer.vcxproj -> \\Mac\Home\Documents\Visual Studio 2015\Projects\cs1410\Assign4 - Big Integer\Debug\Assign4 - Big Integer.pdb (Full PDB)

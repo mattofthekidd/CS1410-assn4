@@ -5,57 +5,50 @@
 
 #include "BigInteger.hpp"
 
-void BigInteger::testPrint() {
-	//std::cout << "digit count: " << m_digitCount << ", size reserve: " << m_sizeReserved << ", num: ";
-	//this->display();
-	//std::cout<<std::endl;
-}
+
 
 BigInteger::BigInteger() :
-	m_number(new uint8_t[4]{0, 0, 0 ,0}),
-	m_digitCount(0),
-	m_sizeReserved(4)
+	m_sizeReserved(4),
+	m_number(new uint8_t[m_sizeReserved]),
+	m_digitCount(0)
 {
-	//m_number = 0;
+	fillArray();
 }
 
-BigInteger::BigInteger(int num) :
-	m_digitCount(1),
-	m_sizeReserved(4)
-{
-	//std::cout << "int constructor\n";
-	auto count = findDigitCount(num);
-	m_number = new uint8_t[getSizeReserved()];
-	for (unsigned int i = 0; i < count; i++) {
-		m_number[i] = (num % 10);
-		num /= 10;
-	}
-	if (count != getSizeReserved()) {
-		fillArray();
-	}
-	//testPrint();
-}
-
-BigInteger::BigInteger(std::string line) :
-	m_digitCount(line.length()),
-	m_sizeReserved(4)
-{
-	//std::cout << "string constructor\n";
+// ------------------------------------------------------------------
+//
+// Initializes the BigInteger object using a string. Only used by overloaded constructors.
+//
+// ------------------------------------------------------------------
+void BigInteger::init(std::string x) {
+	m_digitCount = x.length();
 	if (m_digitCount > getSizeReserved()) {
 		checkSizeReserved(m_digitCount);
 	}
 
 	m_number = new uint8_t[getSizeReserved()];
 	for (unsigned int i = 0; i < m_digitCount; i++) {
-		if (line.length() > 0) {
-			m_number[i] = line.back() - '0';
-			line.pop_back();
+		if (x.length() > 0) {
+			m_number[i] = x.back() - '0';
+			x.pop_back();
 		}
 	}
 	if (m_digitCount != getSizeReserved()) {
 		fillArray();
 	}
-	//testPrint();
+}
+
+BigInteger::BigInteger(std::string line) :
+	m_sizeReserved(4)
+{
+	init(line);
+}
+
+BigInteger::BigInteger(int num) :
+	m_sizeReserved(4)
+{
+	std::string temp = std::to_string(num);
+	init(temp);
 }
 
 unsigned int BigInteger::getSizeReserved()
@@ -130,15 +123,12 @@ void BigInteger::display()
 //copy constructor
 BigInteger::BigInteger(const BigInteger &rhs)
 {
-	//std::cout << "copy constructor\n";
 	copyArray(rhs);
-
 }
 
 //assignment operator
 BigInteger& BigInteger::operator=(const BigInteger &rhs)
 {
-	//std::cout << "assignment\n";
 	delete[] this->m_number;
 	copyArray(rhs);
 	return *this;
@@ -147,9 +137,7 @@ BigInteger& BigInteger::operator=(const BigInteger &rhs)
 BigInteger::~BigInteger()
 {
 	if (m_number != nullptr) {
-
 		delete[]m_number;
-
 	}
 }
 
@@ -175,47 +163,40 @@ std::uint8_t BigInteger::getDigit(unsigned int position) const
 //
 // ------------------------------------------------------------------
 void BigInteger::setDigit(unsigned int position, std::uint8_t digit) {
-	//if pos > size resereved
 	if (position >= getSizeReserved()) {
-		// std::cout << "setDigit\n";
+
 		checkSizeReserved(position);
-		int newSize = m_sizeReserved;
+
 		uint8_t *ptr_number = m_number;
-		m_number = new uint8_t[newSize];
-		for (int i = 0; i < newSize; i++) {
+		m_number = new uint8_t[m_sizeReserved];
+
+		for (int i = 0; i < m_sizeReserved; i++) {
 			m_number[i] = ptr_number[i];
 		}
 		fillArray();
-		m_number[position] = digit;
-
 	}
-	else {
-		m_number[position] = digit;
-		//std::cout << "setDigit, else\n";
-	}
-	
-		if (m_digitCount <= position) {
-			m_digitCount = position + 1;
-		}
-	testPrint();
-	
-
+	m_number[position] = digit;
+	m_digitCount = position + 1;
 }
 
 // ------------------------------------------------------------------
 //
-//
+// Increases the size reserved until it is large enough to contain the position value.
 //
 // ------------------------------------------------------------------
 void BigInteger::checkSizeReserved(unsigned int value) {
-		while (value >= getSizeReserved()) {
-			m_sizeReserved *= 2;
-		}
+	while (value >= getSizeReserved()) {
+		m_sizeReserved *= 2;
+	}
 }
 
+// ------------------------------------------------------------------
+//
+// Copy the values on the right object to the left object.
+//
+// ------------------------------------------------------------------
 void BigInteger::copyArray(const BigInteger &rhs)
 {
-	//std::cout << "inside copyArray: " << rhs.m_sizeReserved << ", " << rhs.m_digitCount << std::endl;
 	m_sizeReserved = rhs.m_sizeReserved;
 	m_digitCount = rhs.m_digitCount;
 
@@ -225,19 +206,11 @@ void BigInteger::copyArray(const BigInteger &rhs)
 	}
 }
 
-unsigned int BigInteger::findDigitCount(int num) {
-	unsigned int size = 0;
-	while (num != 0) {
-		num /= 10;
-		size++;
-		if (size > m_sizeReserved) {
-			checkSizeReserved(size);
-		}
-	}
-	m_digitCount = size;
-	return size;
-}
-
+// ------------------------------------------------------------------
+//
+// Fills an array with zeros.
+//
+// ------------------------------------------------------------------
 void BigInteger::fillArray() {
 	for (int i = m_digitCount; i < m_sizeReserved; i++) {
 		m_number[i] = 0;

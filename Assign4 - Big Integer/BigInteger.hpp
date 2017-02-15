@@ -11,8 +11,8 @@ class BigInteger
 {
 public:
 	BigInteger();
-	BigInteger(int num);
 	BigInteger(std::string line);
+	BigInteger(int num);
 	unsigned int getSizeReserved();
 	BigInteger add(const BigInteger& rhs);
 	BigInteger multiply(const BigInteger& rhs);
@@ -34,10 +34,12 @@ private:
 	unsigned int m_sizeReserved;	// Total size of the allocated space used to internally store the number
 	unsigned int m_digitCount;	// How many digits are in the number.
 
+	void init(std::string x);
+
 	std::uint8_t getDigit(unsigned int position) const;
 	void setDigit(unsigned int position, std::uint8_t digit);
 	void checkSizeReserved(unsigned int position);
-	unsigned int findDigitCount(int num);
+	//unsigned int findDigitCount(int num);
 
 	void copyArray(const BigInteger &rhs);
 	void fillArray();
