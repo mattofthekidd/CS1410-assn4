@@ -6,54 +6,40 @@
 #include "BigInteger.hpp"
 
 
-
+// ------------------------------------------------------------------
+//
+// Default Constructor
+//
+// ------------------------------------------------------------------
 BigInteger::BigInteger() :
 	m_sizeReserved(4),
-	m_number(new uint8_t[m_sizeReserved]),
 	m_digitCount(0)
 {
+	m_number = new uint8_t[m_sizeReserved];
 	fillArray();
 }
 
 // ------------------------------------------------------------------
 //
-// Initializes the BigInteger object using a string. Only used by overloaded constructors.
+// Overloaded Constructor for strings.
 //
 // ------------------------------------------------------------------
-void BigInteger::init(std::string x) {
-	m_digitCount = x.length();
-	if (m_digitCount > getSizeReserved()) {
-		checkSizeReserved(m_digitCount);
-	}
-
-	m_number = new uint8_t[getSizeReserved()];
-	for (unsigned int i = 0; i < m_digitCount; i++) {
-		if (x.length() > 0) {
-			m_number[i] = x.back() - '0';
-			x.pop_back();
-		}
-	}
-	if (m_digitCount != getSizeReserved()) {
-		fillArray();
-	}
-}
-
 BigInteger::BigInteger(std::string line) :
 	m_sizeReserved(4)
 {
 	init(line);
 }
 
+// ------------------------------------------------------------------
+//
+// Overloaded Constructor for int.
+//
+// ------------------------------------------------------------------
 BigInteger::BigInteger(int num) :
 	m_sizeReserved(4)
 {
 	std::string temp = std::to_string(num);
 	init(temp);
-}
-
-unsigned int BigInteger::getSizeReserved()
-{
-	return m_sizeReserved;
 }
 
 BigInteger BigInteger::add(const BigInteger& rhs)
@@ -120,13 +106,21 @@ void BigInteger::display()
 	}
 }
 
-//copy constructor
+// ------------------------------------------------------------------
+//
+// Copy Constructor
+//
+// ------------------------------------------------------------------
 BigInteger::BigInteger(const BigInteger &rhs)
 {
 	copyArray(rhs);
 }
 
-//assignment operator
+// ------------------------------------------------------------------
+//
+// Assignment operator overload
+//
+// ------------------------------------------------------------------
 BigInteger& BigInteger::operator=(const BigInteger &rhs)
 {
 	delete[] this->m_number;
@@ -134,10 +128,38 @@ BigInteger& BigInteger::operator=(const BigInteger &rhs)
 	return *this;
 }
 
+// ------------------------------------------------------------------
+//
+// Deconstructor
+//
+// ------------------------------------------------------------------
 BigInteger::~BigInteger()
 {
 	if (m_number != nullptr) {
 		delete[]m_number;
+	}
+}
+
+// ------------------------------------------------------------------
+//
+// Initializes the BigInteger object using a string. Only used by overloaded constructors.
+//
+// ------------------------------------------------------------------
+void BigInteger::init(std::string x) {
+	m_digitCount = x.length();
+	if (m_digitCount > m_sizeReserved) {
+		checkSizeReserved(m_digitCount);
+	}
+
+	m_number = new uint8_t[m_sizeReserved];
+	for (unsigned int i = 0; i < m_digitCount; i++) {
+		if (x.length() > 0) {
+			m_number[i] = x.back() - '0';
+			x.pop_back();
+		}
+	}
+	if (m_digitCount != m_sizeReserved) {
+		fillArray();
 	}
 }
 
@@ -163,7 +185,7 @@ std::uint8_t BigInteger::getDigit(unsigned int position) const
 //
 // ------------------------------------------------------------------
 void BigInteger::setDigit(unsigned int position, std::uint8_t digit) {
-	if (position >= getSizeReserved()) {
+	if (position >= m_sizeReserved) {
 
 		checkSizeReserved(position);
 
@@ -185,7 +207,7 @@ void BigInteger::setDigit(unsigned int position, std::uint8_t digit) {
 //
 // ------------------------------------------------------------------
 void BigInteger::checkSizeReserved(unsigned int value) {
-	while (value >= getSizeReserved()) {
+	while (value >= m_sizeReserved) {
 		m_sizeReserved *= 2;
 	}
 }
@@ -201,7 +223,7 @@ void BigInteger::copyArray(const BigInteger &rhs)
 	m_digitCount = rhs.m_digitCount;
 
 	m_number = new uint8_t[m_sizeReserved];
-	for (int i = 0; i < getSizeReserved(); i++) {
+	for (int i = 0; i < m_sizeReserved; i++) {
 		m_number[i] = rhs.m_number[i];
 	}
 }

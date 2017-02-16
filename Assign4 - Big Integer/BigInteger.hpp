@@ -13,7 +13,6 @@ public:
 	BigInteger();
 	BigInteger(std::string line);
 	BigInteger(int num);
-	unsigned int getSizeReserved();
 	BigInteger add(const BigInteger& rhs);
 	BigInteger multiply(const BigInteger& rhs);
 	void display();
@@ -39,14 +38,9 @@ private:
 	std::uint8_t getDigit(unsigned int position) const;
 	void setDigit(unsigned int position, std::uint8_t digit);
 	void checkSizeReserved(unsigned int position);
-	//unsigned int findDigitCount(int num);
 
 	void copyArray(const BigInteger &rhs);
 	void fillArray();
-
-
-	void testPrint();
-
 };
 
 #endif
