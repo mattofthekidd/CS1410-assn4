@@ -1,37 +1,12 @@
-﻿  BigInteger.cpp
+﻿  main.cpp
+  Generating Code...
+  Compiling...
+  TestCases.cpp
+\\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\testcases.cpp(70): warning C4018: '<': signed/unsigned mismatch
+  BigInteger.cpp
 \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.cpp(195): warning C4018: '<': signed/unsigned mismatch
 \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.cpp(226): warning C4018: '<': signed/unsigned mismatch
 \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.cpp(237): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
-  Compiling...
-  main.cpp
-\\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\main.cpp(13): error C2248: 'BigInteger::~BigInteger': cannot access private member declared in class 'BigInteger'
-  \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.hpp(31): note: see declaration of 'BigInteger::~BigInteger'
-  \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.hpp(11): note: see declaration of 'BigInteger'
-\\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\main.cpp(17): error C2248: 'BigInteger::~BigInteger': cannot access private member declared in class 'BigInteger'
-  \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.hpp(31): note: see declaration of 'BigInteger::~BigInteger'
-  \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.hpp(11): note: see declaration of 'BigInteger'
-\\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\main.cpp(20): error C2248: 'BigInteger::~BigInteger': cannot access private member declared in class 'BigInteger'
-  \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.hpp(31): note: see declaration of 'BigInteger::~BigInteger'
-  \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.hpp(11): note: see declaration of 'BigInteger'
-\\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\main.cpp(25): error C2248: 'BigInteger::~BigInteger': cannot access private member declared in class 'BigInteger'
-  \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.hpp(31): note: see declaration of 'BigInteger::~BigInteger'
-  \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.hpp(11): note: see declaration of 'BigInteger'
-\\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\main.cpp(26): error C2248: 'BigInteger::~BigInteger': cannot access private member declared in class 'BigInteger'
-  \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.hpp(31): note: see declaration of 'BigInteger::~BigInteger'
-  \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.hpp(11): note: see declaration of 'BigInteger'
-\\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\main.cpp(27): error C2248: 'BigInteger::~BigInteger': cannot access private member declared in class 'BigInteger'
-  \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.hpp(31): note: see declaration of 'BigInteger::~BigInteger'
-  \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.hpp(11): note: see declaration of 'BigInteger'
-\\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\main.cpp(35): error C2248: 'BigInteger::~BigInteger': cannot access private member declared in class 'BigInteger'
-  \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.hpp(31): note: see declaration of 'BigInteger::~BigInteger'
-  \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.hpp(11): note: see declaration of 'BigInteger'
-\\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\main.cpp(36): error C2248: 'BigInteger::~BigInteger': cannot access private member declared in class 'BigInteger'
-  \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.hpp(31): note: see declaration of 'BigInteger::~BigInteger'
-  \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.hpp(11): note: see declaration of 'BigInteger'
-\\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\main.cpp(37): error C2248: 'BigInteger::~BigInteger': cannot access private member declared in class 'BigInteger'
-  \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.hpp(31): note: see declaration of 'BigInteger::~BigInteger'
-  \\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\biginteger.hpp(11): note: see declaration of 'BigInteger'
-  TestCases.cpp
-\\mac\home\documents\visual studio 2015\projects\cs1410\assign4 - big integer\assign4 - big integer\testcases.cpp(70): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
+  Assign4 - Big Integer.vcxproj -> \\Mac\Home\Documents\Visual Studio 2015\Projects\cs1410\Assign4 - Big Integer\Debug\Assign4 - Big Integer.exe
+  Assign4 - Big Integer.vcxproj -> \\Mac\Home\Documents\Visual Studio 2015\Projects\cs1410\Assign4 - Big Integer\Debug\Assign4 - Big Integer.pdb (Full PDB)

@@ -39,12 +39,12 @@ int main()
 	result2.display();
 	std::cout << std::endl;
 
-	/*BigInteger f = factorial(123);
+	BigInteger f = factorial(123);
 	std::cout << "factorial of 123 is: ";
 	f.display();
-	std::cout << std::endl;*/
+	std::cout << std::endl;
 
-	//TestCases::runTestCases();
+	TestCases::runTestCases();
 
 	return 0;
 }
